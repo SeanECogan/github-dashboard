@@ -5,10 +5,13 @@ import UserLookup from './UserLookup';
 import UserLookupLoading from './UserLookupLoading';
 import UserLookupError from './UserLookupError';
 import UserInfoCard from './UserInfoCard';
+import CommitsInfoCard from './CommitsInfoCard';
 
 import './Dashboard.css';
 
 class Dashboard extends React.Component {
+    githubPersonalAccessToken = '0d7a6ac0c75fa178712a5e4cd8d7667695cdb7f3';
+
     constructor(props) {
         super(props);
 
@@ -23,7 +26,7 @@ class Dashboard extends React.Component {
         };
     }
 
-    handleSearch(userName) {
+    handleSearch(userLogin) {
         this.setState({
             user: null,
             userLookupErrorMessage: null,
@@ -31,7 +34,12 @@ class Dashboard extends React.Component {
             userLookupIsInProgress: true
         });
 
-        axios.get(`https://api.github.com/users/${userName}`)
+        axios.get(
+            `https://api.github.com/users/${userLogin}`, {
+                headers: {
+                    Authorization: 'Bearer ' + this.githubPersonalAccessToken
+                }
+            })
             .then(
                 res => {
                     this.setState({
@@ -82,7 +90,8 @@ class Dashboard extends React.Component {
                             userRepos={user.numberOfRepos}
                             userFollowers={user.numberOfFollowers}
                             userFollowing={user.numberOfFollowing} />
-                        <div className="dashboard-card">TBD</div>
+                        <CommitsInfoCard
+                            userLogin={user.login} />
                     </React.Fragment>
                 );
             } else {
