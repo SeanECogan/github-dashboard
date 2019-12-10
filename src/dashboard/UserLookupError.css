@@ -1,0 +1,8 @@
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+
+.error-stack {
+    white-space: pre-wrap;
+}

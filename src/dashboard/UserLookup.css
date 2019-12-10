@@ -1,0 +1,31 @@
+form {
+    margin-top: 16px;
+    width: 100%;
+}
+
+input[type=text] {
+    padding: 6px;
+    font-size: 17px;
+    border: none;
+    width: calc(100% - 91px);
+    border: 1px solid #BBB;
+    border-right: 0;
+}
+
+input[type=submit] {
+    float: right;
+    padding: 7px 12px;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    background-color: #504caf;
+    color: white;
+}
+
+input[type=submit]:hover {
+    background-color: #48449d;
+}
+
+input[type=submit]:active {
+    background-color: #403d8b;
+}
