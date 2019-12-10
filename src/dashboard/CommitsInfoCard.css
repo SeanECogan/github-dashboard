@@ -1,0 +1,50 @@
+.dashboard-card .card-body p.commits {
+    text-align: center;
+    font-size: 48px;
+    font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: -10px;
+}
+
+.dashboard-card .card-body p.commits-subtext {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.commits-filter-buttons {
+    display: flex;
+    margin-top: 24px;
+}
+
+.filter-button {
+    flex-grow: 1;
+    width: 20%;
+    margin-right: 4px;
+    padding: 7px 12px;
+    font-size: 17px;
+    border: 1px solid #999;
+    cursor: pointer;
+    background-color: #EEE;
+}
+
+.filter-button:hover {
+    background-color: #CCC;
+}
+
+.filter-button:active {
+    background-color: #BBB;
+}
+
+.filter-button.active {
+    background-color: #504caf;
+    color: white;
+}
+
+.filter-button.active:hover {
+    background-color: #48449d;
+}
+
+.filter-button.active:active {
+    background-color: #403d8b;
+}

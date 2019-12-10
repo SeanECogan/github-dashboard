@@ -4,17 +4,23 @@ import axios from 'axios';
 import CardContentLookupLoading from './CardContentLookupLoading';
 import CardContentLookupError from './CardContentLookupError';
 
+import './CommitsInfoCard.css';
+
 class CommitsInfoCard extends React.Component {
     githubPersonalAccessToken = '0d7a6ac0c75fa178712a5e4cd8d7667695cdb7f3';
 
     constructor(props) {
         super(props);
 
+        this.handleFilterClick = this.handleFilterClick.bind(this);
+
         this.state = {
             commits: [],
+            filteredCommits: [],
             commitsLookupErrorMessage: null,
             commitsLookupErrorStack: null,
-            commitsLookupIsInProgress: false
+            commitsLookupIsInProgress: false,
+            commitsFilteredBy: 'all-time'
         };
     }
 
@@ -25,9 +31,11 @@ class CommitsInfoCard extends React.Component {
     lookUpCommits(userLogin) {
         this.setState({
             commits: [],
+            filteredCommits: [],
             commitsLookupErrorMessage: null,
             commitsLookupErrorStack: null,
-            commitsLookupIsInProgress: true
+            commitsLookupIsInProgress: true,
+            commitsFilteredBy: 'all-time'
         });
 
         axios.get(
@@ -66,6 +74,7 @@ class CommitsInfoCard extends React.Component {
                                     if (reposToProcess === 0) {
                                         this.setState({
                                             commits: currentCommits,
+                                            filteredCommits: currentCommits,
                                             commitsLookupIsInProgress: false
                                         });
                                     }
@@ -88,6 +97,73 @@ class CommitsInfoCard extends React.Component {
                         commitsLookupIsInProgress: false
                     });
                 });
+    }
+
+    handleFilterClick(e, filterBy) {
+        this.setState({
+            commitsFilteredBy: filterBy
+        });
+
+        switch(filterBy) {
+            case 'past-day':
+                this.setState({
+                    filteredCommits: this.state.commits.filter(commit => {
+                        const filterDate = new Date();
+                        filterDate.setDate(filterDate.getDate() - 1);
+
+                        console.log(filterDate);
+
+                        return commit.date >= filterDate;
+                    })
+                });
+            break;
+
+            case 'past-week':
+                this.setState({
+                    filteredCommits: this.state.commits.filter(commit => {
+                        const filterDate = new Date();
+                        filterDate.setDate(filterDate.getDate() - 7);
+
+                        console.log(filterDate);
+
+                        return commit.date >= filterDate;
+                    })
+                });
+            break;
+
+            case 'past-month':
+                this.setState({
+                    filteredCommits: this.state.commits.filter(commit => {
+                        const filterDate = new Date();
+                        filterDate.setDate(filterDate.getDate() - 31);
+
+                        console.log(filterDate);
+
+                        return commit.date >= filterDate;
+                    })
+                });
+            break;
+
+            case 'past-year':
+                this.setState({
+                    filteredCommits: this.state.commits.filter(commit => {
+                        const filterDate = new Date();
+                        filterDate.setDate(filterDate.getDate() - 365);
+
+                        console.log(filterDate);
+
+                        return commit.date >= filterDate;
+                    })
+                });
+            break;
+
+            case 'all-time':
+            default:
+                this.setState({
+                    filteredCommits: this.state.commits
+                });
+            break;
+        }
     }
 
     render() {
@@ -114,9 +190,27 @@ class CommitsInfoCard extends React.Component {
                 );
             } else if (commits && commits.length > 0) {
                 cardContent = (
-                    <React.Fragment>
-                        <p>{this.state.commits.length} commits.</p>
-                    </React.Fragment>
+                    <div>
+                        <p className="commits">{this.state.filteredCommits.length}</p>                        
+                        <p className="commits-subtext">commits</p>
+                        <div className="commits-filter-buttons">
+                            <button 
+                                className={this.state.commitsFilteredBy === 'past-day' ? 'filter-button active' : 'filter-button'}
+                                onClick={(e) => this.handleFilterClick(e, 'past-day')}>Past Day</button>
+                            <button 
+                                className={this.state.commitsFilteredBy === 'past-week' ? 'filter-button active' : 'filter-button'}
+                                onClick={(e) => this.handleFilterClick(e, 'past-week')}>Past Week</button>
+                            <button 
+                                className={this.state.commitsFilteredBy === 'past-month' ? 'filter-button active' : 'filter-button'}
+                                onClick={(e) => this.handleFilterClick(e, 'past-month')}>Past Month</button>
+                            <button 
+                                className={this.state.commitsFilteredBy === 'past-year' ? 'filter-button active' : 'filter-button'}
+                                onClick={(e) => this.handleFilterClick(e, 'past-year')}>Past Year</button>
+                            <button 
+                                className={this.state.commitsFilteredBy === 'all-time' ? 'filter-button active' : 'filter-button'}
+                                onClick={(e) => this.handleFilterClick(e, 'all-time')}>All Time</button>
+                        </div>
+                    </div>
                 );
             } else {
                 cardContent = null;
