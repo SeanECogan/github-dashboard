@@ -7,6 +7,8 @@ import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import CardContentLookupLoading from './CardContentLookupLoading';
 import CardContentLookupError from './CardContentLookupError';
 
+import './RepoLanguagesCard.css';
+
 class RepoLanguagesCard extends React.Component {
     githubPersonalAccessToken = '0d7a6ac0c75fa178712a5e4cd8d7667695cdb7f3';
 
@@ -164,7 +166,7 @@ class RepoLanguagesCard extends React.Component {
                 className="dashboard-card">
                 <div className="card-body">
                     {cardContent}
-                <div id="repo-languages-chart" style={{height: displayChart ? "500px" : "0px"}}></div>
+                    <div id="repo-languages-chart" style={{height: displayChart ? "500px" : "0px"}}></div>
                 </div>
             </div>
         );

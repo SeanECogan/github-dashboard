@@ -217,7 +217,7 @@ class CommitsInfoCard extends React.Component {
                 </div>
             </div>
         );
-    };
+    }
 }
 
 export default CommitsInfoCard;
