@@ -4,6 +4,7 @@ import axios from 'axios';
 import UserLookup from './UserLookup';
 import UserLookupLoading from './UserLookupLoading';
 import UserLookupError from './UserLookupError';
+import UserInfoCard from './UserInfoCard';
 
 import './Dashboard.css';
 
@@ -15,7 +16,7 @@ class Dashboard extends React.Component {
 
         this.state = {
             userName: null,
-            userLookupResults: null,
+            user: null,
             userLookupErrorMessage: null,
             userLookupErrorStack: null,
             userLookupIsInProgress: false
@@ -24,6 +25,9 @@ class Dashboard extends React.Component {
 
     handleSearch(userName) {
         this.setState({
+            user: null,
+            userLookupErrorMessage: null,
+            userLookupErrorStack: null,
             userLookupIsInProgress: true
         });
 
@@ -31,7 +35,15 @@ class Dashboard extends React.Component {
             .then(
                 res => {
                     this.setState({
-                        userLookupResults: JSON.stringify(res),
+                        user: {
+                            id: res.data.id,
+                            login: res.data.login,
+                            name: res.data.name,
+                            avatarUrl: res.data.avatar_url,
+                            numberOfRepos: res.data.public_repos,
+                            numberOfFollowers: res.data.followers,
+                            numberOfFollowing: res.data.following
+                        },
                         userLookupIsInProgress: false
                     });
                 },
@@ -47,6 +59,8 @@ class Dashboard extends React.Component {
     render() {
         const userLookupIsInProgress = this.state.userLookupIsInProgress;
 
+        const user = this.state.user;
+
         const userLookupErrorMessage = this.state.userLookupErrorMessage;
         const userLookupErrorStack = this.state.userLookupErrorStack;
 
@@ -58,9 +72,21 @@ class Dashboard extends React.Component {
             if (userLookupErrorMessage && userLookupErrorMessage.length > 0) {
                 dashboardContent = 
                     <UserLookupError errorMessage={userLookupErrorMessage} errorStack={userLookupErrorStack} />;
+            } else if (user) {
+                dashboardContent = (
+                    <React.Fragment>
+                        <UserInfoCard
+                            userLogin={user.login}
+                            userName={user.name}
+                            userAvatarUrl={user.avatarUrl}
+                            userRepos={user.numberOfRepos}
+                            userFollowers={user.numberOfFollowers}
+                            userFollowing={user.numberOfFollowing} />
+                        <div className="dashboard-card">TBD</div>
+                    </React.Fragment>
+                );
             } else {
-                dashboardContent =
-                <p>{this.state.userLookupResults}</p>;
+                dashboardContent = null;
             }
         }
 

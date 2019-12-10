@@ -9,7 +9,7 @@ class UserLookupError extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="error">
                 <h4>An error occurred while retrieving user information:</h4>
                 <p className="error-message">
                     {this.props.errorMessage}

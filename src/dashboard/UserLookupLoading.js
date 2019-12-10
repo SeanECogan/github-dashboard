@@ -11,7 +11,7 @@ class UserLookupLoading extends React.Component {
 
     render() {
         return (
-            <div class="loading-content">
+            <div className="loading-content">
                 <FontAwesomeIcon icon={faSpinner} size="4x" spin />
                 <p>Retrieving user information...</p>
             </div>

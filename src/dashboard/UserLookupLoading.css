@@ -1,6 +1,7 @@
 .loading-content {
     margin-top: 160px;
     text-align: center;
+    flex-grow: 1;
 }
 
 .loading-content p {
