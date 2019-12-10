@@ -6,6 +6,7 @@ import UserLookupLoading from './UserLookupLoading';
 import UserLookupError from './UserLookupError';
 import UserInfoCard from './UserInfoCard';
 import CommitsInfoCard from './CommitsInfoCard';
+import RepoLanguagesCard from './RepoLanguagesCard';
 
 import './Dashboard.css';
 
@@ -91,6 +92,8 @@ class Dashboard extends React.Component {
                             userFollowers={user.numberOfFollowers}
                             userFollowing={user.numberOfFollowing} />
                         <CommitsInfoCard
+                            userLogin={user.login} />
+                        <RepoLanguagesCard
                             userLogin={user.login} />
                     </React.Fragment>
                 );

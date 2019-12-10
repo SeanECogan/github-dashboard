@@ -1,6 +1,6 @@
 .dashboard-content {
     display: flex;
-    align-content: space-around;
+    flex-wrap: wrap;
     margin-top: 16px;
     margin-left: -8px;
     margin-right: -8px;
@@ -11,7 +11,15 @@
     border: 1px solid #DDD;
     padding: 16px;
     margin: 8px;
-    width: 50%;
+    max-width: calc(50% - 50px);
+    min-width: calc(50% - 50px);
+}
+
+@media (max-width: 800px) {
+    .dashboard-card {
+        max-width: calc(100% - 48px);
+        min-width: calc(100% - 48px);
+    }
 }
 
 .dashboard-card img {

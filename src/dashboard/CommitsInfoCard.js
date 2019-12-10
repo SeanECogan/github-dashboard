@@ -111,8 +111,6 @@ class CommitsInfoCard extends React.Component {
                         const filterDate = new Date();
                         filterDate.setDate(filterDate.getDate() - 1);
 
-                        console.log(filterDate);
-
                         return commit.date >= filterDate;
                     })
                 });
@@ -123,8 +121,6 @@ class CommitsInfoCard extends React.Component {
                     filteredCommits: this.state.commits.filter(commit => {
                         const filterDate = new Date();
                         filterDate.setDate(filterDate.getDate() - 7);
-
-                        console.log(filterDate);
 
                         return commit.date >= filterDate;
                     })
@@ -137,8 +133,6 @@ class CommitsInfoCard extends React.Component {
                         const filterDate = new Date();
                         filterDate.setDate(filterDate.getDate() - 31);
 
-                        console.log(filterDate);
-
                         return commit.date >= filterDate;
                     })
                 });
@@ -149,8 +143,6 @@ class CommitsInfoCard extends React.Component {
                     filteredCommits: this.state.commits.filter(commit => {
                         const filterDate = new Date();
                         filterDate.setDate(filterDate.getDate() - 365);
-
-                        console.log(filterDate);
 
                         return commit.date >= filterDate;
                     })
@@ -213,7 +205,7 @@ class CommitsInfoCard extends React.Component {
                     </div>
                 );
             } else {
-                cardContent = null;
+                cardContent = <p className="no-commits">User has no public commit information.</p>;
             }
         }
 

@@ -14,18 +14,29 @@
 
 .commits-filter-buttons {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 24px;
 }
 
 .filter-button {
     flex-grow: 1;
-    width: 20%;
+    max-width: calc(20% - 4px);
+    min-width: calc(20% - 4px);
     margin-right: 4px;
     padding: 7px 12px;
     font-size: 17px;
     border: 1px solid #999;
     cursor: pointer;
     background-color: #EEE;
+}
+
+@media(max-width: 800px) {
+    .filter-button {        
+        max-width: 100%;
+        min-width: 100%;
+        margin-right: 0px;
+        margin-bottom: 4px;
+    }
 }
 
 .filter-button:hover {
@@ -47,4 +58,11 @@
 
 .filter-button.active:active {
     background-color: #403d8b;
+}
+
+.dashboard-card .card-body p.no-commits {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 60px;
 }
